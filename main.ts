@@ -1,1 +1,3 @@
-let mySprite = sprites.create(assets.image`myDuck`, SpriteKind.Player)
+let mySprite = sprites.create(assets.image`
+    myDuck
+    `, SpriteKind.Player)
