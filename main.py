@@ -3,8 +3,9 @@ class SpriteKind:
     character = SpriteKind.create()
 # Classes
 class CharacterSprite(sprites.ExtendableSprite):
-    def __init__(self, image: Image, kind: number, character: number):
+    def __init__(self, image: Image, kind: number, characterr: number):
         super().__init__(image, kind)
+        character = characterr - 1
 # Global Variables
 # Constants
 #Arrays
@@ -14,32 +15,32 @@ def Character_choice():
     game.splash("Choose a character")
     tiles.set_current_tilemap(tilemap("""character choice"""))
     for value in tiles.get_tiles_by_type(assets.tile("""character 1""")):
-        Character1 =sprites.create(list[0], SpriteKind.character)
+        Character1: CharacterSprite = CharacterSprite(list[0], SpriteKind.character, 1)
         Character1.say_text(":)")
         tiles.place_on_tile(Character1, value)
         tiles.set_tile_at(value, assets.tile("""transparency16"""))
     for value1 in tiles.get_tiles_by_type(assets.tile("""character 2""")):
-        character2 = sprites.create(list[1], SpriteKind.character)
+        character2 : CharacterSprite= CharacterSprite(list[1], SpriteKind.character, 2)
         character2.say_text(":)")
         tiles.place_on_tile(character2, value1)  
         tiles.set_tile_at(value1, assets.tile("""transparency16"""))
     for value2 in tiles.get_tiles_by_type(assets.tile("""character 3""")):
-        character3= sprites.create(list[2], SpriteKind.character)
+        character3 : CharacterSprite= CharacterSprite(list[2], SpriteKind.character, 3)
         character3.say_text(":)")
         tiles.place_on_tile(character3, value2)
         tiles.set_tile_at(value2, assets.tile("""transparency16"""))
     for value3 in tiles.get_tiles_by_type(assets.tile("""character4""")):
-        character4= sprites.create(list[3], SpriteKind.character)
+        character4: CharacterSprite= CharacterSprite(list[3], SpriteKind.character, 4)
         character4.say_text(":)")
         tiles.place_on_tile(character4, value3)
         tiles.set_tile_at(value3, assets.tile("""transparency16"""))
     for value4 in tiles.get_tiles_by_type(assets.tile("""character 5""")):
-        character5= sprites.create(list[4], SpriteKind.character)
+        character5: CharacterSprite= CharacterSprite(list[4], SpriteKind.character, 5)
         character5.say_text(":)")
         tiles.place_on_tile(character5, value4)
         tiles.set_tile_at(value4, assets.tile("""transparency16"""))
     for value5 in tiles.get_tiles_by_type(assets.tile("""character 6""")):
-        character6= sprites.create(list[5], SpriteKind.character)
+        character6: CharacterSprite= CharacterSprite(list[5], SpriteKind.character, 6)
         character6.say_text(":)")
         tiles.place_on_tile(character6, value5)
         tiles.set_tile_at(value5, assets.tile("""transparency16"""))
