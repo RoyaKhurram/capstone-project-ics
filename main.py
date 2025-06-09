@@ -3,10 +3,13 @@ class SpriteKind:
     character = SpriteKind.create()
 # Classes
 class CharacterSprite(sprites.ExtendableSprite):
+    character: number = 0
     def __init__(self, image: Image, kind: number, characterr: number):
         super().__init__(image, kind)
-        character = characterr - 1
+        self.character = characterr - 1    
+        
 # Global Variables
+hero: Sprite = None
 # Constants
 #Arrays
 list = [assets.image("""character1"""), assets.image("""character2"""), assets.image("""character3"""), assets.image("""character4"""), assets.image("""character5"""), assets.image("""character6""")]
@@ -14,6 +17,7 @@ list = [assets.image("""character1"""), assets.image("""character2"""), assets.i
 def Character_choice():
     game.splash("Choose a character")
     tiles.set_current_tilemap(tilemap("""character choice"""))
+    global hero
     for value in tiles.get_tiles_by_type(assets.tile("""character 1""")):
         Character1: CharacterSprite = CharacterSprite(list[0], SpriteKind.character, 1)
         Character1.say_text(":)")
@@ -53,6 +57,8 @@ def Character_choice():
 def levels():
     Character_choice()
 #EventHandler
-
+def on_overlap(player: sprite, character: CharacterSprite):   
+    player.set_image(list[character.character])
+sprites.on_overlap(SpriteKind.player, SpriteKind.character, on_overlap)
 #Main
 levels()

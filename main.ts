@@ -4,14 +4,32 @@ namespace SpriteKind {
 
 //  Classes
 class CharacterSprite extends sprites.ExtendableSprite {
+    static character: number
+    private ___character_is_set: boolean
+    private ___character: number
+    get character(): number {
+        return this.___character_is_set ? this.___character : CharacterSprite.character
+    }
+    set character(value: number) {
+        this.___character_is_set = true
+        this.___character = value
+    }
+    
+    public static __initCharacterSprite() {
+        CharacterSprite.character = 0
+    }
+    
     constructor(image: Image, kind: number, characterr: number) {
         super(image, kind)
-        let character = characterr - 1
+        this.character = characterr - 1
     }
     
 }
 
+CharacterSprite.__initCharacterSprite()
+
 //  Global Variables
+let hero : Sprite = null
 //  Constants
 // Arrays
 let list = [assets.image`character1`, assets.image`character2`, assets.image`character3`, assets.image`character4`, assets.image`character5`, assets.image`character6`]
@@ -23,9 +41,9 @@ function Character_choice() {
     let character4: CharacterSprite;
     let character5: CharacterSprite;
     let character6: CharacterSprite;
-    let hero: Sprite;
     game.splash("Choose a character")
     tiles.setCurrentTilemap(tilemap`character choice`)
+    
     for (let value of tiles.getTilesByType(assets.tile`character 1`)) {
         Character1 = new CharacterSprite(list[0], SpriteKind.character, 1)
         Character1.sayText(":)")
@@ -76,5 +94,8 @@ function levels() {
 }
 
 // EventHandler
+sprites.onOverlap(SpriteKind.Player, SpriteKind.character, function on_overlap(player: Sprite, character: CharacterSprite) {
+    player.setImage(list[character.character])
+})
 // Main
 levels()
