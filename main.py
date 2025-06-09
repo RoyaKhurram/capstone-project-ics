@@ -10,6 +10,7 @@ class CharacterSprite(sprites.ExtendableSprite):
         
 # Global Variables
 hero: Sprite = None
+current_level=0
 # Constants
 #Arrays
 list = [assets.image("""character1"""), assets.image("""character2"""), assets.image("""character3"""), assets.image("""character4"""), assets.image("""character5"""), assets.image("""character6""")]
@@ -55,10 +56,19 @@ def Character_choice():
         tiles.place_on_tile(hero, value6)
         tiles.set_tile_at(value6, assets.tile("""transparency16"""))
 def levels():
-    Character_choice()
+    sprites.destroy_all_sprites_of_kind(SpriteKind.character)
+    if current_level== 0:
+        Character_choice()
+    if current_level == 1:    
+        tiles.set_current_tilemap(tilemap("""level0"""))
 #EventHandler
 def on_overlap(player: sprite, character: CharacterSprite):   
     player.set_image(list[character.character])
 sprites.on_overlap(SpriteKind.player, SpriteKind.character, on_overlap)
+def on_overlap_tile(sprite, location):
+    global current_level
+    current_level += 1
+    levels()
+scene.on_overlap_tile(SpriteKind.player, assets.tile("""start game"""), on_overlap_tile)
 #Main
 levels()

@@ -30,6 +30,7 @@ CharacterSprite.__initCharacterSprite()
 
 //  Global Variables
 let hero : Sprite = null
+let current_level = 0
 //  Constants
 // Arrays
 let list = [assets.image`character1`, assets.image`character2`, assets.image`character3`, assets.image`character4`, assets.image`character5`, assets.image`character6`]
@@ -90,12 +91,25 @@ function Character_choice() {
 }
 
 function levels() {
-    Character_choice()
+    sprites.destroyAllSpritesOfKind(SpriteKind.character)
+    if (current_level == 0) {
+        Character_choice()
+    }
+    
+    if (current_level == 1) {
+        tiles.setCurrentTilemap(tilemap`level0`)
+    }
+    
 }
 
 // EventHandler
 sprites.onOverlap(SpriteKind.Player, SpriteKind.character, function on_overlap(player: Sprite, character: CharacterSprite) {
     player.setImage(list[character.character])
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`start game`, function on_overlap_tile(sprite: Sprite, location: tiles.Location) {
+    
+    current_level += 1
+    levels()
 })
 // Main
 levels()
