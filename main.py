@@ -85,7 +85,31 @@ def dream1():
     game.splash("You must escape the school in order to escape the dream!")
     game.splash("good luck!")
 def dream2():
+    gravity= 380
+    current_level=0
+    jumpspeed=-178
+    playerspeed= 80
+    playerspeedy= 0
+    scene.set_background_color(9)
     tiles.set_current_tilemap(tilemap("""dream2"""))
+    for value3 in tiles.get_tiles_by_type(assets.tile("""2playerstart""")):
+            controller.move_sprite(hero, playerspeed, playerspeedy)
+            hero.ay= gravity
+            scene.camera_follow_sprite(hero)
+            tiles.place_on_tile(hero, value3)
+            tiles.set_tile_at(value3, assets.tile("""transparency16"""))
+    def on_event_pressed():
+        numberofjumps= 0
+        if hero.vy==0:
+            hero.vy= jumpspeed
+            numberofjumps += 1
+    controller.A.on_event(ControllerButtonEvent.PRESSED, on_event_pressed)
+    def on_overlap_tile2(sprite, location):
+        sprites.destroy_all_sprites_of_kind(SpriteKind.player)
+    scene.on_overlap_tile(SpriteKind.player, assets.tile("""2nextlevel"""), on_overlap_tile2)
+    def on_overlap_tile3(sprite, location):
+        pass
+    scene.on_overlap_tile(SpriteKind.player, assets.tile("""falling"""), on_overlap_tile3)
 def dream3():
     tiles.set_current_tilemap(tilemap("""dream3"""))
 def dream4():

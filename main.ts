@@ -134,7 +134,34 @@ function dream1() {
 }
 
 function dream2() {
+    let gravity = 380
+    let current_level = 0
+    let jumpspeed = -178
+    let playerspeed = 80
+    let playerspeedy = 0
+    scene.setBackgroundColor(9)
     tiles.setCurrentTilemap(tilemap`dream2`)
+    for (let value3 of tiles.getTilesByType(assets.tile`2playerstart`)) {
+        controller.moveSprite(hero, playerspeed, playerspeedy)
+        hero.ay = gravity
+        scene.cameraFollowSprite(hero)
+        tiles.placeOnTile(hero, value3)
+        tiles.setTileAt(value3, assets.tile`transparency16`)
+    }
+    controller.A.onEvent(ControllerButtonEvent.Pressed, function on_event_pressed() {
+        let numberofjumps = 0
+        if (hero.vy == 0) {
+            hero.vy = jumpspeed
+            numberofjumps += 1
+        }
+        
+    })
+    scene.onOverlapTile(SpriteKind.Player, assets.tile`2nextlevel`, function on_overlap_tile2(sprite: Sprite, location: tiles.Location) {
+        sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    })
+    scene.onOverlapTile(SpriteKind.Player, assets.tile`falling`, function on_overlap_tile3(sprite: Sprite, location: tiles.Location) {
+        
+    })
 }
 
 function dream3() {
