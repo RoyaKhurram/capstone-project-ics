@@ -44,6 +44,7 @@ function Character_choice() {
     let character6: CharacterSprite;
     game.splash("Choose a character")
     tiles.setCurrentTilemap(tilemap`character choice`)
+    scene.setBackgroundColor(9)
     
     for (let value of tiles.getTilesByType(assets.tile`character 1`)) {
         Character1 = new CharacterSprite(list[0], SpriteKind.character, 1)
@@ -91,15 +92,65 @@ function Character_choice() {
 }
 
 function levels() {
-    sprites.destroyAllSpritesOfKind(SpriteKind.character)
     if (current_level == 0) {
         Character_choice()
     }
     
     if (current_level == 1) {
-        tiles.setCurrentTilemap(tilemap`level0`)
+        sprites.destroyAllSpritesOfKind(SpriteKind.character)
+        scene.setBackgroundColor(0)
+        tiles.setCurrentTilemap(tilemap`transition`)
     }
     
+    if (current_level == 2) {
+        if (hero.image == list[0]) {
+            dream1()
+        } else if (hero.image == list[1]) {
+            dream2()
+        } else if (hero.image == list[2]) {
+            dream3()
+        } else if (hero.image == list[3]) {
+            dream4()
+        } else if (hero.image == list[4]) {
+            dream5()
+        } else if (hero.image == list[5]) {
+            dream6()
+        }
+        
+    }
+    
+    if (current_level == 3) {
+        
+    }
+    
+}
+
+function dream1() {
+    tiles.setCurrentTilemap(tilemap`level`)
+    game.splash("You are in Hope's dream")
+    game.splash("She is in a nightmare about school")
+    game.splash("You must escape the school in order to escape the dream!")
+    game.splash("good luck!")
+}
+
+function dream2() {
+    tiles.setCurrentTilemap(tilemap`dream2`)
+}
+
+function dream3() {
+    tiles.setCurrentTilemap(tilemap`dream3`)
+}
+
+function dream4() {
+    tiles.setCurrentTilemap(tilemap`dream4`)
+}
+
+function dream5() {
+    tiles.setCurrentTilemap(tilemap`dream5`)
+}
+
+function dream6() {
+    tiles.setCurrentTilemap(tilemap`dream6`)
 }
 
 // EventHandler
@@ -107,6 +158,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.character, function on_overlap(p
     player.setImage(list[character.character])
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`start game`, function on_overlap_tile(sprite: Sprite, location: tiles.Location) {
+    
+    current_level += 1
+    levels()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`Transition`, function on_overlap_tile1(sprite: Sprite, location: tiles.Location) {
     
     current_level += 1
     levels()

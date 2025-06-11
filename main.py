@@ -18,6 +18,7 @@ list = [assets.image("""character1"""), assets.image("""character2"""), assets.i
 def Character_choice():
     game.splash("Choose a character")
     tiles.set_current_tilemap(tilemap("""character choice"""))
+    scene.set_background_color(9)
     global hero
     for value in tiles.get_tiles_by_type(assets.tile("""character 1""")):
         Character1: CharacterSprite = CharacterSprite(list[0], SpriteKind.character, 1)
@@ -56,11 +57,43 @@ def Character_choice():
         tiles.place_on_tile(hero, value6)
         tiles.set_tile_at(value6, assets.tile("""transparency16"""))
 def levels():
-    sprites.destroy_all_sprites_of_kind(SpriteKind.character)
     if current_level== 0:
         Character_choice()
-    if current_level == 1:    
-        tiles.set_current_tilemap(tilemap("""level0"""))
+    if current_level == 1: 
+        sprites.destroy_all_sprites_of_kind(SpriteKind.character)
+        scene.set_background_color(0)
+        tiles.set_current_tilemap(tilemap("""transition"""))
+    if current_level == 2:
+        if hero.image== list[0]:
+            dream1()
+        elif hero.image == list[1]:
+            dream2()
+        elif hero.image == list[2]:
+            dream3()
+        elif hero.image == list [3]:
+            dream4()
+        elif hero.image == list [4]:
+            dream5()
+        elif hero.image == list [5]:
+            dream6()
+    if current_level == 3:
+        pass
+def dream1():
+    tiles.set_current_tilemap(tilemap("""level"""))
+    game.splash("You are in Hope's dream")
+    game.splash("She is in a nightmare about school")
+    game.splash("You must escape the school in order to escape the dream!")
+    game.splash("good luck!")
+def dream2():
+    tiles.set_current_tilemap(tilemap("""dream2"""))
+def dream3():
+    tiles.set_current_tilemap(tilemap("""dream3"""))
+def dream4():
+    tiles.set_current_tilemap(tilemap("""dream4"""))
+def dream5():
+    tiles.set_current_tilemap(tilemap("""dream5"""))
+def dream6():
+    tiles.set_current_tilemap(tilemap("""dream6"""))
 #EventHandler
 def on_overlap(player: sprite, character: CharacterSprite):   
     player.set_image(list[character.character])
@@ -70,5 +103,10 @@ def on_overlap_tile(sprite, location):
     current_level += 1
     levels()
 scene.on_overlap_tile(SpriteKind.player, assets.tile("""start game"""), on_overlap_tile)
+def on_overlap_tile1(sprite, location):
+    global current_level
+    current_level += 1
+    levels()
+scene.on_overlap_tile(SpriteKind.player, assets.tile("""Transition"""), on_overlap_tile1)
 #Main
 levels()
