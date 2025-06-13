@@ -2,6 +2,8 @@ namespace SpriteKind {
     export const character = SpriteKind.create()
 }
 
+// Comment
+
 //  Classes
 class CharacterSprite extends sprites.ExtendableSprite {
     static character: number
